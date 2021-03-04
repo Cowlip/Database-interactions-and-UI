@@ -9,7 +9,8 @@ app.use(bodyParser.json());
 // Connect to database
 var mysql = require('mysql');
 var pool = mysql.createPool({
-  host            : 'mysql.eecs.oregonstate.edu',
+  connectionLimit : 10,
+  host            : 'classmysql.engr.oregonstate.edu',
   user            : 'cs290_pradojo',
   password        : '2234',
   database        : 'cs290_pradojo'
@@ -17,7 +18,7 @@ var pool = mysql.createPool({
 
 app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
-app.set('port',5556);
+app.set('port',7798);
 
 app.use(express.static(__dirname + '/public'));
 
@@ -110,6 +111,6 @@ app.use(function(err, req, res, next){
   res.render('500');
 });
 
-app.listen(app.get('port'),function(){
-  console.log("Server is running...")
+app.listen(app.get('port'), function(){
+  console.log('Express started on http://flip3.engr.oregonstate.edu:' + app.get('port') + '; press Ctrl-C to terminate.');
 });
